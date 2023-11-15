@@ -2,26 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Function to simulate task completion rates
-def simulate_completion_rate(num_steps, dt, a, b, c):
+def simulate_completion_rate(num_steps, dt, a, b, c, noise_type='normal'):
     # Initialize arrays to store time and completion rate
     time = np.zeros(num_steps)
     completion_rate = np.zeros(num_steps)
 
     # Initial values
     time[0] = 0
-    completion_rate[0] = 0.2  # Initial completion rate (adjust as needed)
-
-    # Generate Wiener process (Brownian motion)
-    
-    noise_type = 'brownian'
-    if noise_type == 'normal':
-        dW = np.random.normal(0, np.sqrt(dt), 1)
-    elif noise_type == 'brownian':
-       
-        dW = np.random.normal(0,np.random.standard_normal(1) * np.sqrt(dt), num_steps - 1)
-    else:
-        raise ValueError("Invalid noise type. Choose 'normal' or 'brownian'.")
-
+    completion_rate[0] = 0.1  # Initial completion rate (adjust as needed)
 
     # Simulation loop
     for i in range(1, num_steps):
@@ -31,8 +19,16 @@ def simulate_completion_rate(num_steps, dt, a, b, c):
         # Volatility term
         sigma = c * completion_rate[i - 1]
 
+        # Generate noise based on the selected noise type
+        if noise_type == 'normal':
+            dW = np.random.normal(0, np.sqrt(dt), 1)
+        elif noise_type == 'brownian':
+            dW = np.random.standard_normal(1) * np.sqrt(dt)
+        else:
+            raise ValueError("Invalid noise type. Choose 'normal' or 'brownian'.")
+
         # Stochastic differential equation
-        dP = mu * completion_rate[i - 1] * (1 - completion_rate[i - 1]) * dt + sigma * completion_rate[i - 1] * (1 - completion_rate[i - 1]) * dW[i - 1]
+        dP = mu * completion_rate[i - 1] * (1 - completion_rate[i - 1]) * dt + sigma * completion_rate[i - 1] * (1 - completion_rate[i - 1]) * dW
 
         # Update time and completion rate
         time[i] = time[i - 1] + dt
@@ -48,7 +44,7 @@ b = 0.02
 c = 0.1
 
 # Run the simulation
-time, completion_rate = simulate_completion_rate(num_steps, dt, a, b, c)
+time, completion_rate = simulate_completion_rate(num_steps, dt, a, b, c, noise_type="brownian")
 
 # Plot the results
 plt.plot(time, completion_rate)
