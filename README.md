@@ -22,7 +22,7 @@ To run the simulation, follow these steps:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/task-completion-simulation.git
+   git clone https://github.com/GeorgeMurphy-1/task-completion-simulation.git
 
  1. Navigate to the project directory: cd task-completion-simulation
 
