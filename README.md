@@ -15,6 +15,9 @@ In real-world scenarios, the choice of a development/production strategy can sig
 
 The simulation is based on a stochastic differential equation that models the probability of task completion over time. The equation includes both deterministic and stochastic components to capture the dynamic nature of project tasks.
 
+![image](https://github.com/GeorgeMurphy-1/Project-Success-based-on-task-completion/assets/143225708/5a09fbf1-7050-4b14-9fc6-24aeade12b51)
+
+
 ## Getting Started
 
 To run the simulation, follow these steps:
